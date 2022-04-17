@@ -25,8 +25,8 @@ const servicesData = [
 
 const Services = () => {
     return (
-        <div className='my-5 py-5 container'>
-            <h1 className='text-center text-info fw-bold mb-5'>Services</h1>
+        <div className='my-5 container'>
+            <h1 className='text-center text-info fw-bold mb-4'>Services</h1>
 
             <div className="row row-cols-1 row-cols-md-3 g-5    ">
                 {
