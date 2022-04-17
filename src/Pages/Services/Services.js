@@ -25,8 +25,8 @@ const servicesData = [
 
 const Services = () => {
     return (
-        <div className='my-5 container'>
-            <h1 className='text-center text-info fw-bold mb-4'>Services</h1>
+        <div className='my-5 py-5 container'>
+            <h1 className='text-center text-info fw-bold mb-5'>Services</h1>
 
             <div className="row row-cols-1 row-cols-md-3 g-5    ">
                 {
@@ -40,7 +40,7 @@ const Service = ({ cardInfo }) => {
     const { img, title, dc } = cardInfo
     return (
         <div className="col ">
-            <div className="card h-100">
+            <div className="card h-100 shadow-lg">
                 <img src={img} className="card-img-top" alt="..." />
                 <div className="card-body pb-0">
                     <h5 className="card-title">{title}</h5>
