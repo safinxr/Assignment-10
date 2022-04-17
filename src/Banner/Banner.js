@@ -9,7 +9,7 @@ const Banner = () => {
                 <h1 className='text-white display-4 fw-bold'>KEEP YOUR BODY</h1>
                 <h1 className='text-info display-4 fw-bold '>FIT & STRONG</h1>
                 <p className='text-info h3'>With FIT BOSS</p>
-                <Link className='btn text-white bg-color px-4' to='/'>Join Now <i class="fa-solid fa-angles-right"></i></Link>
+                <Link className='btn text-white bg-color px-4' to='/'>Join Now <i className="fa-solid fa-angles-right"></i></Link>
             </div>
 
 
