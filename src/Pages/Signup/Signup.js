@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
-import { useCreateUserWithEmailAndPassword, useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import Loading from "../../Loading/Loading";
 
 
@@ -24,9 +24,10 @@ const Signup = () => {
   ] = useCreateUserWithEmailAndPassword(auth);
   const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
   const [signInWithGithub, gitUser, gitUoading, gitError] = useSignInWithGithub(auth);
+  const [signInWithFacebook, fbuser, fbloading, fberror] = useSignInWithFacebook(auth);
 
 
-  if (user || googleUser) {
+  if (user || googleUser || gitUser || fbuser) {
     navigate('/login')
   }
 
@@ -61,6 +62,10 @@ const Signup = () => {
 
   const gitSignup = () => {
     signInWithGithub();
+  }
+
+  const fbSignup =() =>{
+    signInWithFacebook()
   }
 
   // 🍟🍟🍟🍟🍟🍟🍟🍟🍟 HTML 🍟🍟🍟🍟🍟🍟🍟🍟🍟
@@ -106,7 +111,7 @@ const Signup = () => {
               required
             />
           </div>
-          <p><small className="text-danger">{allError || error?.message || googleError?.message || gitError?.message}</small></p>
+          <p><small className="text-danger">{allError || error?.message || googleError?.message || gitError?.message || fberror?.message}</small></p>
           <button type="submit" className="btn text-white bg-color w-100 ">
             {
               loading ? <Loading></Loading> : 'Signin'
@@ -134,6 +139,7 @@ const Signup = () => {
             alt=""
           />
           <img
+          onClick={fbSignup}
             className="mx-3"
             width={30}
             src="https://cdn.iconscout.com/icon/free/png-256/facebook-circle-1868984-1583148.png"
