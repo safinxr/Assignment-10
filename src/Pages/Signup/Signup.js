@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import Loading from "../../Loading/Loading";
 
 
@@ -15,18 +15,23 @@ const Signup = () => {
 
   const navigate = useNavigate()
 
+  // 🔐🔐🔐🔐🔐🔏 Signup method 🔐🔐🔐🔐🔐🔏
   const [
     createUserWithEmailAndPassword,
     user,
     loading,
     error,
   ] = useCreateUserWithEmailAndPassword(auth);
+  const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+  const [signInWithGithub, gitUser, gitUoading, gitError] = useSignInWithGithub(auth);
 
-  if (user) {
+
+  if (user || googleUser) {
     navigate('/login')
   }
 
 
+  // 📩📩📩📩📩📩 Email, Password 📩📩📩📩📩📩
   const getEmail = (e) => {
     setEmail(e.target.value)
   }
@@ -37,7 +42,7 @@ const Signup = () => {
     setCpassword(e.target.value)
   }
 
-
+  // 🥂🥂🥂🥂🥂🥂🥂🥂 Signup 🥂🥂🥂🥂🥂🥂🥂🥂
   const signinSubmit = e => {
     e.preventDefault();
     if (password !== cPassword) {
@@ -45,11 +50,20 @@ const Signup = () => {
       return;
     }
     else {
-      createUserWithEmailAndPassword(email, password)
+      setAllError('')
+      createUserWithEmailAndPassword()
     }
   }
 
+  const googleSignup = () => {
+    signInWithGoogle(email, password)
+  }
 
+  const gitSignup = () => {
+    signInWithGithub();
+  }
+
+  // 🍟🍟🍟🍟🍟🍟🍟🍟🍟 HTML 🍟🍟🍟🍟🍟🍟🍟🍟🍟
   return (
     <div>
       <div className="col-10 col-md-4 p-4 mx-auto my-5 shadow-lg rounded">
@@ -92,14 +106,11 @@ const Signup = () => {
               required
             />
           </div>
-          <p className="text-danger">{allError}</p>
-          <p className="text-danger">{
-            error ? error.message : ''
-          }</p>
+          <p><small className="text-danger">{allError || error?.message || googleError?.message || gitError?.message}</small></p>
           <button type="submit" className="btn text-white bg-color w-100 ">
             {
               loading ? <Loading></Loading> : 'Signin'
-         }
+            }
           </button>
         </form>
         <p className="my-2">
@@ -111,9 +122,12 @@ const Signup = () => {
             Login
           </Link>
         </p>
+
+        {/* 🤖🤖🤖🤖🤖🤖🤖 Image Icon 🤖🤖🤖🤖🤖🤖🤖 */}
         <p className="text-center mt-4">Or Signup using</p>
         <div className="d-flex justify-content-center pb-4">
           <img
+            onClick={googleSignup}
             className="mx-3"
             width={30}
             src="https://cdn.iconscout.com/icon/free/png-256/google-470-675827.png"
@@ -126,6 +140,7 @@ const Signup = () => {
             alt=""
           />
           <img
+            onClick={gitSignup}
             className="mx-3"
             width={30}
             src="https://cdn.iconscout.com/icon/free/png-256/github-2296067-1912026.png"
