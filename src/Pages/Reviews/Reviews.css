@@ -1,0 +1,17 @@
+.review-bg {
+    background-color: #332467;
+}
+
+.radius {
+    border-radius: 30px;
+}
+
+.radius p {
+    font-size: 12px;
+    text-align: justify;
+}
+
+.position {
+    position: relative;
+    bottom: 40px;
+}
