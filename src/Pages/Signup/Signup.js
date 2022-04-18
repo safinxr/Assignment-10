@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Signup = () => {
   return (
     <div>
-      <div className="col-10 col-md-3 p-4 mx-auto my-5 shadow-lg rounded">
+      <div className="col-10 col-md-4 p-4 mx-auto my-5 shadow-lg rounded">
       <h3 className="text-center text-info">SIGNUP</h3>
         <form className="">
           <div className="mb-3">
@@ -17,6 +17,7 @@ const Signup = () => {
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
+              required
             />
           </div>
           <div className="mb-3">
@@ -27,6 +28,7 @@ const Signup = () => {
               type="password"
               className="form-control"
               id="exampleInputPassword1"
+              required
             />
           </div>
           <div className="mb-3">
@@ -37,6 +39,7 @@ const Signup = () => {
               type="password"
               className="form-control"
               id="exampleInputPassword1"
+              required
             />
           </div>
           <button type="submit" className="btn text-white bg-color w-100 ">
