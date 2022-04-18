@@ -3,7 +3,7 @@ import "./Reviews.css";
 
 const Reviews = () => {
   return (
-    <div className="review-bg my-5 py-5">
+    <div className="review-bg mt-5 py-5">
       <h1 className="text-center text-white fw-bold mb-4">People's Review</h1>
       <div className="container">
         <div className="row">
