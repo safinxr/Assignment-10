@@ -1,8 +1,16 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, NavLink } from 'react-router-dom';
+import auth from '../../firebase.init';
 import logo from '../../images/logo.png'
 
 const Navbar = () => {
+  const [user, loading, error] = useAuthState(auth);
+
+  const logout = () => {
+    signOut(auth);
+  };
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div className="container ">
@@ -56,7 +64,15 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li className='nave-item'>
-            <NavLink
+            {
+              user? <NavLink onClick={logout}
+              className={({ isActive }) =>
+                isActive ? "nav-link text-info fs-4 ms-2" : "nav-link fs-4 ms-2"
+              }
+              to="/login"
+            >
+              Sign out
+            </NavLink>:<NavLink
               className={({ isActive }) =>
                 isActive ? "nav-link text-info fs-4 ms-2" : "nav-link fs-4 ms-2"
               }
@@ -64,6 +80,7 @@ const Navbar = () => {
             >
               Login
             </NavLink>
+            }
           </li>
         </ul>
 

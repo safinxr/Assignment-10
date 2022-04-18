@@ -1,18 +1,65 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import auth from "../../firebase.init";
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
 
 
 const Signup = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [cPassword, setCpassword] = useState('')
+  const [allError, setAllError] = useState('')
+
+
+  const navigate = useNavigate()
+
+  const [
+    createUserWithEmailAndPassword,
+    user,
+    loading,
+    error,
+  ] = useCreateUserWithEmailAndPassword(auth);
+
+  if (user) {
+    navigate('/login')
+  }
+
+
+  const getEmail = (e) => {
+    setEmail(e.target.value)
+  }
+  const getPassword = (e) => {
+    setPassword(e.target.value)
+  }
+  const getCpassword = (e) => {
+    setCpassword(e.target.value)
+  }
+
+
+  const signinSubmit = e => {
+    e.preventDefault();
+    if (password !== cPassword) {
+      setAllError('password did not match')
+      return;
+    }
+    else {
+      createUserWithEmailAndPassword(email, password)
+    }
+  }
+
+
   return (
     <div>
       <div className="col-10 col-md-4 p-4 mx-auto my-5 shadow-lg rounded">
-      <h3 className="text-center text-info">SIGNUP</h3>
-        <form className="">
+        <h3 className="text-center text-info">SIGNUP</h3>
+        <form onSubmit={signinSubmit} className="">
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
               Email address
             </label>
             <input
+              onChange={getEmail}
               type="email"
               className="form-control"
               id="exampleInputEmail1"
@@ -25,6 +72,7 @@ const Signup = () => {
               Password
             </label>
             <input
+              onChange={getPassword}
               type="password"
               className="form-control"
               id="exampleInputPassword1"
@@ -33,21 +81,28 @@ const Signup = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="exampleInputPassword1" className="form-label">
-            Confirm Password
+              Confirm Password
             </label>
             <input
+              onChange={getCpassword}
               type="password"
               className="form-control"
-              id="exampleInputPassword1"
+              id="exampleInputPassword2"
               required
             />
           </div>
+          <p className="text-danger">{allError}</p>
+          <p className="text-danger">{
+            error ? error.message : ''
+          }</p>
           <button type="submit" className="btn text-white bg-color w-100 ">
-            Signup
+            {
+              loading ? 'Loding...' : 'Signin'
+         }
           </button>
         </form>
         <p className="my-2">
-        Already have an account ? <Link
+          Already have an account ? <Link
             className="
         text-danger text-decoration-none"
             to="/login"

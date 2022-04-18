@@ -49,7 +49,7 @@ const Service = ({ cardInfo }) => {
           <p className="card-text">{dc}</p>
           <p className="card-text h5">Price: ${price}</p>
         </div>
-        <div class="card-footer border-0 mx-auto pb-3">
+        <div className="card-footer border-0 mx-auto pb-3">
           <Link className="btn bg-color px-4 text-white" to="/checkout">
             Check out{" "}
           </Link>
