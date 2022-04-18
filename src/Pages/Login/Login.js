@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
+import Loading from "../../Loading/Loading";
 
 
 
@@ -16,7 +17,7 @@ const Login = () => {
   ] = useSignInWithEmailAndPassword(auth);
 
   if(user){
-    navigate('/home')
+    
   }
 
   const [email, setEmail] = useState('')
@@ -68,7 +69,7 @@ const Login = () => {
           <p className="text-danger">{error? error.message: ''}</p>
           <button type="submit" className="btn text-white bg-color w-100 ">
             {
-              loading? "loading..." : 'Login'
+              loading? <Loading></Loading> : 'Login'
             }
           </button>
         </form>

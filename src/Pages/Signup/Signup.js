@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import Loading from "../../Loading/Loading";
 
 
 
@@ -97,7 +98,7 @@ const Signup = () => {
           }</p>
           <button type="submit" className="btn text-white bg-color w-100 ">
             {
-              loading ? 'Loding...' : 'Signin'
+              loading ? <Loading></Loading> : 'Signin'
          }
           </button>
         </form>
