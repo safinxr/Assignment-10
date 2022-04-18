@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { useSignInWithEmailAndPassword, useSignInWithFacebook, useSignInWithGithub, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import auth from "../../firebase.init";
 import Loading from "../../Loading/Loading";
@@ -11,6 +11,10 @@ const Login = () => {
   const location = useLocation()
   const from = location.state?.from?.pathname || "/";
 
+  const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+  const [signInWithGithub, gitUser, gitUoading, gitError] = useSignInWithGithub(auth);
+  const [signInWithFacebook, fbuser, fbloading, fberror] = useSignInWithFacebook(auth);
+
   const [
     signInWithEmailAndPassword,
     user,
@@ -18,7 +22,7 @@ const Login = () => {
     error,
   ] = useSignInWithEmailAndPassword(auth);
 
-  if(user){
+  if (user || googleUser || gitUser || fbuser) {
     navigate(from, { replace: true });
   }
 
@@ -36,7 +40,17 @@ const Login = () => {
     e.preventDefault();
     signInWithEmailAndPassword(email, password)
   }
+  const googleSignup = () => {
+    signInWithGoogle(email, password)
+  }
 
+  const gitSignup = () => {
+    signInWithGithub();
+  }
+
+  const fbSignup = () => {
+    signInWithFacebook()
+  }
 
   return (
     <div>
@@ -68,10 +82,10 @@ const Login = () => {
               required
             />
           </div>
-          <p className="text-danger">{error? error.message: ''}</p>
+          <p><small className="text-danger">{error?.message || googleError?.message || gitError?.message || fberror?.message}</small></p>
           <button type="submit" className="btn text-white bg-color w-100 ">
             {
-              loading? <Loading></Loading> : 'Login'
+              loading ? <Loading></Loading> : 'Login'
             }
           </button>
         </form>
@@ -79,9 +93,9 @@ const Login = () => {
         text-danger text-decoration-none" to='/signup'>Signup</Link></p>
         <p className="text-center mt-4">Or Login using</p>
         <div className="d-flex justify-content-center pb-4">
-          <img className="mx-3" width={30} src="https://cdn.iconscout.com/icon/free/png-256/google-470-675827.png" alt="" />
-          <img className="mx-3" width={30} src="https://cdn.iconscout.com/icon/free/png-256/facebook-circle-1868984-1583148.png" alt="" />
-          <img className="mx-3" width={30} src="https://cdn.iconscout.com/icon/free/png-256/github-2296067-1912026.png" alt="" />
+          <img onClick={googleSignup} className="mx-3" width={30} src="https://cdn.iconscout.com/icon/free/png-256/google-470-675827.png" alt="" />
+          <img onClick={fbSignup} className="mx-3" width={30} src="https://cdn.iconscout.com/icon/free/png-256/facebook-circle-1868984-1583148.png" alt="" />
+          <img onClick={gitSignup} className="mx-3" width={30} src="https://cdn.iconscout.com/icon/free/png-256/github-2296067-1912026.png" alt="" />
         </div>
       </div>
     </div>
