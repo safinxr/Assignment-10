@@ -5,6 +5,7 @@ const Signup = () => {
   return (
     <div>
       <div className="w-25 p-4 mx-auto my-5 shadow-lg rounded">
+      <h3 className="text-center text-info">SIGNUP</h3>
         <form className="">
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
@@ -27,21 +28,30 @@ const Signup = () => {
               id="exampleInputPassword1"
             />
           </div>
+          <div className="mb-3">
+            <label htmlFor="exampleInputPassword1" className="form-label">
+            Confirm Password
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+            />
+          </div>
           <button type="submit" className="btn text-white bg-color w-100 ">
-            Login
+            Signup
           </button>
         </form>
         <p className="my-2">
-          Don't have an account ?{" "}
-          <Link
+        Already have an account ? <Link
             className="
         text-danger text-decoration-none"
-            to="/signup"
+            to="/login"
           >
-            Signup
+            Login
           </Link>
         </p>
-        <p className="text-center mt-4">Or Login using</p>
+        <p className="text-center mt-4">Or Signup using</p>
         <div className="d-flex justify-content-center pb-4">
           <img
             className="mx-3"

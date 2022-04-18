@@ -5,6 +5,7 @@ const Login = () => {
   return (
     <div>
       <div className="w-25 p-4 mx-auto my-5 shadow-lg rounded">
+        <h3 className="text-center text-info">LOGIN</h3>
         <form className="">
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
